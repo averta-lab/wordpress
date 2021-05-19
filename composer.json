@@ -1,7 +1,7 @@
 {
     "name": "averta/wordpress",
     "description": "Averta WordPress Toolkit.",
-    "keywords": ["framework", "averta", "php", "wordpress"],
+    "keywords": ["toolkit", "averta", "php", "wordpress"],
     "license": "GPL-3.0-or-later",
     "homepage": "https://averta.net",
     "authors": [
@@ -16,7 +16,7 @@
     },
     "require" : {
         "php": ">=7.0",
-        "ext-json": "*"
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "8.5.*"
@@ -25,6 +25,5 @@
         "psr-4": {
             "Averta\\WordPress\\": "src/"
         }
-    },
-    "minimum-stability": "stable"
+    }
 }

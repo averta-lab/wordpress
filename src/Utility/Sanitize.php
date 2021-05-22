@@ -77,7 +77,30 @@ class Sanitize
      */
     public static function int( $input )
     {
-        return filter_var( $input, FILTER_SANITIZE_NUMBER_INT );
+        return absint( filter_var( $input, FILTER_SANITIZE_NUMBER_INT ) );
+    }
+
+    /**
+     * Sanitize Attribute.
+     *
+     * @param string $input
+     *
+     * @return string
+     */
+    public static function attribute( $input )
+    {
+        return esc_attr( $input );
+    }
+    /**
+     * Sanitize SQL
+     *
+     * @param string $input
+     *
+     * @return string
+     */
+    public static function sql( $input )
+    {
+        return esc_sql( $input );
     }
 
     /**

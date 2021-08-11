@@ -1,6 +1,6 @@
 {
   "name": "averta-wordpress",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "description": "Averta WordPress Toolkit",
   "main": "index.js",
   "scripts": {

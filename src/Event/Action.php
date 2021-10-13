@@ -62,7 +62,7 @@ class Action implements HookInterface
 	 *
 	 * @return mixed
 	 */
-	public function do( $hook_name, $arg  ){
+	public function do( $hook_name, ...$arg  ){
 		return do_action( $hook_name, $arg );
 	}
 }

@@ -45,14 +45,4 @@ interface HookInterface
 	 * @return mixed
 	 */
 	public function did( $hook_name );
-
-	/**
-	 * Calls the callback functions that have been added to a hook.
-	 *
-	 * @param string $hook_name
-	 * @param mixed  $arg
-	 *
-	 * @return mixed
-	 */
-	public function do( $hook_name, $arg );
 }

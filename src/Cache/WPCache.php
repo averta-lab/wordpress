@@ -197,7 +197,7 @@ class WPCache implements CacheInterface{
 		return $this->inUseKeys;
 	}
 
-	private function validateKey( $key ){
+	protected function validateKey( $key ){
 		return $this->keyPrefix . ltrim( $key, $this->keyPrefix );
 	}
 

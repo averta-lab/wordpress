@@ -74,7 +74,7 @@ class JSON
 	 */
     public static function decode( $json, $associative = null, $depth = 512, $flags = 0 )
     {
-        return json_decode( $json );
+        return json_decode( $json, $associative, $depth, $flags );
     }
 
 

@@ -363,4 +363,15 @@ class Sanitize
         return $name;
     }
 
+    /**
+	 * Sanitizes a filename, replacing whitespace with dashes.
+	 *
+	 * @param $filename
+	 *
+	 * @return string
+	 */
+	public static function fileName( $filename ){
+    	return sanitize_file_name( $filename );
+    }
+
 }

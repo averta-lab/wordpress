@@ -214,7 +214,7 @@ class Sanitize
      * @return string
      */
     public static function html( $input, $allowed_tags = null, $namespace = null, $auto_p = false ) {
-        $tags = apply_filters('averta/wordpress/sanitize/html/tags' . ($namespace ? $namespace : 'default'), $allowed_tags ? $allowed_tags : [
+        $tags = apply_filters('averta/wordpress/sanitize/html/tags/' . ($namespace ? $namespace : 'default'), $allowed_tags ? $allowed_tags : [
             'em' => [],
             'strong' => [],
             'small' => [],

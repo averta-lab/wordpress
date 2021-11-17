@@ -213,8 +213,8 @@ class Sanitize
      *
      * @return string
      */
-    public static function html($input, $allowed_tags = null, $namespace = null, $auto_p = false) {
-        $tags = apply_filters('averta_wp_sanitize_html_tags_' . ($namespace ? $namespace : 'default'), $allowed_tags ? $allowed_tags : [
+    public static function html( $input, $allowed_tags = null, $namespace = null, $auto_p = false ) {
+        $tags = apply_filters('averta/wordpress/sanitize/html/tags' . ($namespace ? $namespace : 'default'), $allowed_tags ? $allowed_tags : [
             'em' => [],
             'strong' => [],
             'small' => [],
@@ -244,11 +244,14 @@ class Sanitize
             'figure' => [],
             'figcaption' => [],
             'caption' => [],
+            'div' => [],
             'img' => [
                 'src' => true,
                 'alt' => true,
+                'data-src'		=> true,
+                'data-srcset'	=> true
             ],
-            'video'      => array(
+            'video' => [
                 'autoplay'    => true,
                 'controls'    => true,
                 'height'      => true,
@@ -259,8 +262,10 @@ class Sanitize
                 'preload'     => true,
                 'src'         => true,
                 'width'       => true,
-            ),
+            ],
             'a' => [
+                'id'	=> true,
+                'class'	=> true,
                 'href' => true,
                 'title' => true,
                 'rev'      => true,
@@ -275,11 +280,33 @@ class Sanitize
             'hr' => [],
             'p' => [],
             'br' => [],
+            'link'	=> [
+                'rel'	=> true,
+                'id'	=> true,
+                'href'	=> true,
+                'media'	=> true
+            ],
+            'script'	=> [
+                'id'	=> true,
+                'src'	=> true
+            ],
+            'style'	=> [
+                'type'	=> true
+            ],
+            'meta'	=> [
+                'charset' 	=> true,
+                'name'		=> true,
+                'content'	=> true
+            ],
+            'body'	=> [
+                'class'	=> true,
+            ]
         ]);
-        $output =  trim(wp_kses(trim($input), $tags));
 
-        if($auto_p) {
-            $output = wpautop($output);
+        $output = trim(wp_kses(trim($input), $tags));
+
+        if( $auto_p ) {
+            $output = wpautop( $output );
         }
 
         return $output;

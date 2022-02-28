@@ -1,12 +1,15 @@
 <?php
 namespace Averta\WordPress\Cache;
 
+use Averta\WordPress\Utility\Sanitize;
+use DateInterval;
+use Psr\Http\Message\RequestInterface;
 use Psr\SimpleCache\CacheInterface;
 
 class WPCache implements CacheInterface{
 
 	/**
-	 * The list of transoent keys
+	 * The list of transient keys
 	 *
 	 * @var array
 	 */
@@ -32,16 +35,18 @@ class WPCache implements CacheInterface{
 		}
 	}
 
-	/**
-	 * Get the value of a transient.
-	 *
-	 * If the transient does not exist, does not have a value, or has expired,
-	 * then the return value will be false.
-	 *
-	 * @param string $key  Cache key. Expected to not be SQL-escaped.
-	 *
-	 * @return mixed Value of transient.
-	 */
+    /**
+     * Get the value of a transient.
+     *
+     * If the transient does not exist, does not have a value, or has expired,
+     * then the return value will be false.
+     *
+     * @param string $key Cache key. Expected to not be SQL-escaped.
+     *
+     * @param bool   $default Default cache value
+     *
+     * @return mixed Value of transient.
+     */
 	public function get( $key, $default = false ) {
 		$key = $this->validateKey( $key );
 
@@ -94,15 +99,28 @@ class WPCache implements CacheInterface{
 	}
 
 	/**
-	 * @inheritDoc
+	 * Convert a request object to a unique key
+	 *
+	 * @param  RequestInterface  $request
+	 *
+	 * @return string
 	 */
+	public function hashRequest( RequestInterface $request ) {
+		$requestArgs = $request->getQueryParams();
+
+		$requestArgs['url'] = $request->getRequestTarget();
+		// exclude flush params from hash request key
+		unset( $requestArgs['flush'] );
+		unset( $requestArgs['clearCache'] );
+
+		return Sanitize::textfield( md5( serialize( $requestArgs ) ) );
+	}
+
 	public function has( $key ): bool {
 		return $this->get( $key, false ) !== false;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+
 	public function getMultiple( $keys, $default = null ) {
 		$result = [];
 
@@ -113,9 +131,7 @@ class WPCache implements CacheInterface{
 		return $result;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+
 	public function setMultiple( $values, $ttl = null ): bool {
 		foreach ( $values as $key => $value ) {
 			if ( $this->set( $key, $value, $ttl ) ) {
@@ -127,9 +143,7 @@ class WPCache implements CacheInterface{
 		return true;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+
 	public function deleteMultiple( $keys ): bool {
 
 		foreach ( $keys as $key ) {
@@ -142,9 +156,7 @@ class WPCache implements CacheInterface{
 		return true;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+
 	public function clear(): bool {
 
 		if( ! empty( $this->keyPrefix ) ) {
@@ -190,9 +202,7 @@ class WPCache implements CacheInterface{
 		unset( $this->inUseKeys[ $key ] );
 	}
 
-	/**
-	 * @return array
-	 */
+
 	private function inUseKeys(): array {
 		return $this->inUseKeys;
 	}

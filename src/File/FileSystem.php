@@ -46,15 +46,16 @@ class FileSystem
     }
 
 
-	/**
-	 * Creates and stores content in a file
-	 *
-	 * @param  string $file_location  The address that we plan to create the file in.
-	 * @param  string $content    The content for writing in the file
-	 *
-	 * @return boolean            Returns true if the file is created and updated successfully, false on failure
-	 */
-    public function write( $file_location = '', $content, $chmod = 0644 )
+    /**
+     * Creates and stores content in a file
+     *
+     * @param string $file_location The address that we plan to create the file in.
+     * @param string $content The content for writing in the file
+     * @param int    $chmod
+     *
+     * @return boolean            Returns true if the file is created and updated successfully, false on failure
+     */
+    public function write( $file_location = '', $content = '', $chmod = 0644 )
     {
         if ( ! $this->validate() ){
 			return false;
@@ -117,6 +118,8 @@ class FileSystem
      * Creates a folder path recursively.
      *
      * @param string $path Path
+     *
+     * @return bool
      */
     public function mkdir( $path )
     {
@@ -129,9 +132,11 @@ class FileSystem
 
     /**
      * Removes folder path and contents.
+     *
+     * @return bool
+     * @global $wp_filesytem
      * @since 0.9.0
      *
-     * @global $wp_filesytem
      */
     public function rmdir( $path )
     {

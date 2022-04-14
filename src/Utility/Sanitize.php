@@ -299,11 +299,20 @@ class Sanitize
                 'content'	=> true
             ],
             'body'	=> [
-                'class'	=> true,
+                'class'	=> true
+            ],
+            'picture' => [
+                'id'    => true,
+                'class' => true,
+                'style' => true
+            ],
+            'source' => [
+                'srcset' => true,
+                'src'    => true
             ]
         ]);
 
-        $output = trim(wp_kses(trim($input), $tags));
+        $output = trim( wp_kses( trim( $input ), $tags ) );
 
         if( $auto_p ) {
             $output = wpautop( $output );

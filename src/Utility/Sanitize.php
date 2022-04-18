@@ -241,15 +241,23 @@ class Sanitize
             'tr' => [],
             'th' => [],
             'td' => [],
-            'figure' => [],
+            'figure'     => [],
             'figcaption' => [],
-            'caption' => [],
+            'caption'    => [],
+			'desc'       => [],
+	        'line'       => [],
+	        'marker'     => [],
+	        'mask'       => [],
+	        'metadata'   => [],
+	        'pattern'    => [],
+	        'textpath'   => [],
+	        'use' => [],
             'div' => [],
             'img' => [
-                'src' => true,
-                'alt' => true,
-                'data-src'		=> true,
-                'data-srcset'	=> true
+                'src'    => true,
+                'alt'    => true,
+                'title'  => true,
+                'data-*' => true
             ],
             'video' => [
                 'autoplay'    => true,
@@ -262,16 +270,19 @@ class Sanitize
                 'preload'     => true,
                 'src'         => true,
                 'width'       => true,
+	            'data-*'      => true
             ],
             'a' => [
-                'id'	=> true,
-                'class'	=> true,
-                'href' => true,
-                'title' => true,
+                'id'	   => true,
+                'class'	   => true,
+                'style'	   => true,
+                'href'     => true,
+                'title'    => true,
                 'rev'      => true,
-                'rel' => true,
-                'target' => true,
+                'rel'      => true,
+                'target'   => true,
                 'download' => ['valueless' => 'y'],
+	            'data-*'   => true
             ],
             'li' => [],
             'blockquote' => [],
@@ -304,12 +315,155 @@ class Sanitize
             'picture' => [
                 'id'    => true,
                 'class' => true,
-                'style' => true
+                'style' => true,
+	            'data-*'=> true
             ],
             'source' => [
+                'media'  => true,
                 'srcset' => true,
-                'src'    => true
-            ]
+                'src'    => true,
+	            'data-*' => true
+            ],
+			'iframe' => [
+				'src'             => true,
+				'height'          => true,
+				'width'           => true,
+				'frameborder'     => true,
+				'allowfullscreen' => true,
+			],
+            'svg' => [
+		        'xmlns' => [],
+		        'fill' => [],
+		        'viewbox' => [],
+		        'role' => [],
+		        'aria-hidden' => [],
+		        'focusable' => [],
+		        'width' => [],
+		        'height' => [],
+		        'style' => [],
+		        'class' => [],
+		    ],
+	        'path' => [
+	            'id' => [],
+	            'class' => [],
+	            'd' => [],
+	            'fill' => [],
+	            'fill-rule' => [],
+	            'width' => [],
+	            'height' => [],
+	            'transform' => [],
+	            'stroke-width' => [],
+	            'stroke' => [],
+	            'opacity' => []
+	        ],
+	        'g' => [
+	            'id' => [],
+	            'class' => [],
+	            'fill' => [],
+	            'width' => [],
+	            'height' => [],
+	            'transform' => [],
+	            'data-name' => [],
+	            'stroke-width' => [],
+	            'stroke' => [],
+	            'opacity' => []
+	        ],
+	        'rect' => [
+	            'id' => [],
+	            'class' => [],
+	            'fill' => [],
+	            'width' => [],
+	            'height' => [],
+	            'transform' => [],
+	            'opacity' => [],
+	            'data-name' => [],
+	            'x' => [],
+	            'y' => [],
+	            'rx' => [],
+	            'ry' => []
+	        ],
+	        'circle' => [
+	            'id' => [],
+	            'class' => [],
+	            'fill' => [],
+	            'transform' => [],
+	            'data-name' => [],
+	            'cx' => [],
+	            'cy' => [],
+	            'r' => [],
+	            'stroke-width' => [],
+	            'stroke' => [],
+	            'opacity' => []
+	        ],
+	        'ellipse' => [
+	            'id'   => [],
+	            'class' => [],
+	            'fill' => [],
+	            'transform' => [],
+	            'opacity'   => [],
+	            'data-name' => [],
+	            'cx' => [],
+	            'cy' => [],
+	            'rx' => [],
+	            'ry' => []
+	        ],
+	        'text' => [
+	            'fill' => [],
+	            'width' => [],
+	            'height' => [],
+	            'transform' => [],
+	            'font-size' => [],
+	            'font-family' => [],
+	            'font-weight' => [],
+	            'letter-spacing' => [],
+	            'x' => [],
+	            'y' => [],
+	            'opacity' => []
+	        ],
+	        'lineargradient' => [
+	            'id'  => [],
+	            'href'=> [],
+	            'x1'  => [],
+	            'x2'  => [],
+	            'y1'  => [],
+	            'y2'  => [],
+	            'spreadMethod'  => [],
+	            'gradientUnits' => []
+	        ],
+	        'stop' => [
+	            'offset'     => [],
+	            'stop-color' => []
+	        ],
+	        'radialgradient' => [],
+	        'defs' => [],
+	        'clippath' => [],
+	        'filter' => [
+	            'filterUnits' => [],
+	            'id' => [],
+	            'class' => [],
+	            'width' => [],
+	            'height' => [],
+	            'x' => [],
+	            'y' => [],
+	            'opacity' => []
+	        ],
+	        'feOffset' => [
+	            'dx' => [],
+	            'dy' => [],
+	            'input' => [],
+	        ],
+	        'feGaussianBlur' => [
+	            'stdDeviation' => [],
+	            'result' => []
+	        ],
+	        'feFlood' => [
+	            'flood-color' => []
+	        ],
+	        'feComposite' => [
+	            'operator' => [],
+	            'in' => [],
+	            'in2' => [],
+	        ]
         ]);
 
         $output = trim( wp_kses( trim( $input ), $tags ) );

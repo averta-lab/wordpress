@@ -138,13 +138,13 @@ class FileSystem
      * @since 0.9.0
      *
      */
-    public function rmdir( $path )
+    public function rmdir( $path, $recursive = false )
     {
-		if ( ! $this->validate() ){
-			return false;
-		}
+        if ( ! $this->validate() ){
+            return false;
+        }
 
-		return $this->wpFilesystem->rmdir( $path );
+        return $this->wpFilesystem->rmdir( $path, $recursive );
     }
 
     /**
@@ -179,4 +179,38 @@ class FileSystem
 		return $this->wpFilesystem->dirlist( $path, $include_hidden, $recursive );
     }
 
+    /**
+     * Copy files from source to destination
+     *
+     * @param string $source
+     * @param string $destination
+     * @param false  $overwrite
+     * @param false  $mode
+     *
+     * @return bool True on success, false on failure.
+     */
+    public function copy( $source, $destination, $overwrite = false, $mode = false ) {
+        if ( ! $this->validate() ){
+            return false;
+        }
+
+        return $this->wpFilesystem->copy( $source, $destination, $overwrite, $mode );
+    }
+
+    /**
+     * Move files from source to destination
+     *
+     * @param string $source
+     * @param string $destination
+     * @param false  $overwrite
+     *
+     * @return bool True on success, false on failure.
+     */
+    public function move( $source, $destination, $overwrite = false ) {
+        if ( ! $this->validate() ){
+            return false;
+        }
+
+        return $this->wpFilesystem->move( $source, $destination, $overwrite );
+    }
 }

@@ -198,13 +198,13 @@ class Sanitize
      * @param string $input Post content to filter.
      * @return string Filtered post content with allowed HTML tags and attributes intact.
      */
-    public static function post($input)
+    public static function post( $input )
     {
-        return wp_kses_post($input);
+        return wp_kses_post( $input );
     }
 
     /**
-     *
+     * Sanitizes content for allowed HTML tags.
      *
      * @param string $input HTML input
      * @param null|array $allowed_tags allowed tags for wp_kses
@@ -214,7 +214,41 @@ class Sanitize
      * @return string
      */
     public static function html( $input, $allowed_tags = null, $namespace = null, $auto_p = false ) {
-        $tags = apply_filters('averta/wordpress/sanitize/html/tags/' . ($namespace ? $namespace : 'default'), $allowed_tags ? $allowed_tags : [
+        $tags = apply_filters('averta/wordpress/sanitize/html/tags/' . ($namespace ? $namespace : 'default'), $allowed_tags ? $allowed_tags : self::defaultAllowedTags() );
+
+        $output = trim( wp_kses( trim( $input ), $tags ) );
+
+        if( $auto_p ) {
+            $output = wpautop( $output );
+        }
+
+        return $output;
+    }
+
+    /**
+     * Sanitizes json for allowed HTML tags.
+     *
+     * @param string $input HTML input
+     * @param null|array $allowed_tags allowed tags for wp_kses
+     * @param null|string $namespace
+     *
+     * @return string
+     */
+    public static function json( $input, $allowed_tags = null, $namespace = null ) {
+        $tags = apply_filters('averta/wordpress/sanitize/json/tags/' . ($namespace ? $namespace : 'default'), $allowed_tags ? $allowed_tags : self::defaultAllowedTags() );
+
+        $output = trim( wp_kses( trim( $input ), $tags ) );
+
+        return $output;
+    }
+
+    /**
+     * Retrieves default WordPress HTML tags
+     *
+     * @return array
+     */
+    protected static function defaultAllowedTags(){
+        $tags = [
             'em' => [],
             'strong' => [],
             'small' => [],
@@ -464,15 +498,9 @@ class Sanitize
 	            'in' => [],
 	            'in2' => [],
 	        ]
-        ]);
+        ];
 
-        $output = trim( wp_kses( trim( $input ), $tags ) );
-
-        if( $auto_p ) {
-            $output = wpautop( $output );
-        }
-
-        return $output;
+        return $tags;
     }
 
     /**

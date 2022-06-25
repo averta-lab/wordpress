@@ -108,9 +108,10 @@ class WPCache implements CacheInterface{
 	public function hashRequest( RequestInterface $request ) {
 		$requestArgs = $request->getQueryParams();
 
+        $requestArgs['url'] = $request->getRequestTarget();
 		$requestArgs['url'] = remove_query_arg( 'flush', $requestArgs['url'] );
         $requestArgs['url'] = remove_query_arg( 'clearCache', $requestArgs['url'] );
-        
+
 		// exclude flush params from hash request key
 		unset( $requestArgs['flush'] );
 		unset( $requestArgs['clearCache'] );

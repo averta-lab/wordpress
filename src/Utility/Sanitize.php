@@ -375,7 +375,7 @@ class Sanitize
 		        'width' => [],
 		        'height' => [],
 		        'style' => [],
-		        'class' => [],
+		        'class' => []
 		    ],
 	        'path' => [
 	            'id' => [],
@@ -388,7 +388,8 @@ class Sanitize
 	            'transform' => [],
 	            'stroke-width' => [],
 	            'stroke' => [],
-	            'opacity' => []
+	            'opacity' => [],
+                'style' => []
 	        ],
 	        'g' => [
 	            'id' => [],
@@ -400,7 +401,8 @@ class Sanitize
 	            'data-name' => [],
 	            'stroke-width' => [],
 	            'stroke' => [],
-	            'opacity' => []
+	            'opacity' => [],
+                'style' => []
 	        ],
 	        'rect' => [
 	            'id' => [],
@@ -414,7 +416,8 @@ class Sanitize
 	            'x' => [],
 	            'y' => [],
 	            'rx' => [],
-	            'ry' => []
+	            'ry' => [],
+                'style' => []
 	        ],
 	        'circle' => [
 	            'id' => [],
@@ -427,7 +430,8 @@ class Sanitize
 	            'r' => [],
 	            'stroke-width' => [],
 	            'stroke' => [],
-	            'opacity' => []
+	            'opacity' => [],
+                'style' => []
 	        ],
 	        'ellipse' => [
 	            'id'   => [],
@@ -436,6 +440,7 @@ class Sanitize
 	            'transform' => [],
 	            'opacity'   => [],
 	            'data-name' => [],
+                'style' => [],
 	            'cx' => [],
 	            'cy' => [],
 	            'rx' => [],
@@ -497,7 +502,13 @@ class Sanitize
 	            'operator' => [],
 	            'in' => [],
 	            'in2' => [],
-	        ]
+	        ],
+            'symbol' => [
+                'id' => [],
+                'class' => [],
+                'viewbox' => [],
+                'preserveaspectratio' => []
+            ]
         ];
 
         return $tags;

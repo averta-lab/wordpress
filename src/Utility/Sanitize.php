@@ -603,4 +603,26 @@ class Sanitize
     	return sanitize_file_name( $filename );
     }
 
+    /**
+     * Removes only shortcode tags from the given content but keeps content of shortcodes
+     *
+     * @param string $content
+     * @param array $excludeStripShortcodeTags
+     *
+     * @return array|string|string[]|null
+     */
+    public static function stripShortcodes( $content, $excludeStripShortcodeTags = [] ) {
+        if( ! $content )
+            return $content;
+
+        if( ! $excludeStripShortcodeTags )
+            $excludeStripShortcodeTags = apply_filters( "averta/wordpress/exclude/strip/shortcode/tags", [] );
+
+        if( empty( $excludeStripShortcodeTags ) || ! is_array( $excludeStripShortcodeTags ) )
+            return preg_replace('/\[[^\]]*\]/', '', $content);
+
+        $exclude_codes = join('|', $excludeStripShortcodeTags );
+
+        return preg_replace( "~(?:\[/?)(?!(?:$exclude_codes))[^/\]]+/?\]~s", '', $content );
+    }
 }

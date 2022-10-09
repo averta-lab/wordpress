@@ -326,10 +326,12 @@ class Sanitize
             'p' => [],
             'br' => [],
             'link'	=> [
-                'rel'	=> true,
                 'id'	=> true,
+                'rel'	=> true,
                 'href'	=> true,
-                'media'	=> true
+                'media'	=> true,
+	            'as'    => true,
+	            'imagesrcset' =>true
             ],
             'script'	=> [
                 'id'	=> true,

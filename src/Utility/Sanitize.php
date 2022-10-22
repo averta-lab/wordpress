@@ -338,6 +338,7 @@ class Sanitize
                 'src'	=> true
             ],
             'style'	=> [
+                'id'    => true,
                 'type'	=> true
             ],
             'meta'	=> [
@@ -346,7 +347,9 @@ class Sanitize
                 'content'	=> true
             ],
             'body'	=> [
-                'class'	=> true
+                'id'    => true,
+                'class'	=> true,
+                'dir'	=> true
             ],
             'picture' => [
                 'id'    => true,

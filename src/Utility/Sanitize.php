@@ -331,7 +331,8 @@ class Sanitize
                 'href'	=> true,
                 'media'	=> true,
 	            'as'    => true,
-	            'imagesrcset' =>true
+	            'imagesrcset' =>true,
+                'type'   => true
             ],
             'script'	=> [
                 'id'	=> true,

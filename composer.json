@@ -23,8 +23,12 @@
     "require-dev": {
         "phpunit/phpunit": "8.5.*",
         "filp/whoops": "^2.2",
-        "wp-coding-standards/wpcs": "^2.0",
-        "dealerdirect/phpcodesniffer-composer-installer": "*"
+        "dealerdirect/phpcodesniffer-composer-installer": "*",
+        "wp-coding-standards/wpcs": "^2.3",
+        "roots/wordpress": "*"
+    },
+     "extra": {
+        "wordpress-install-dir": "vendor/wp-core"
     },
     "autoload": {
         "classmap": [],

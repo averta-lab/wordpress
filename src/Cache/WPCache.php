@@ -109,15 +109,29 @@ class WPCache implements CacheInterface{
 		$requestArgs = $request->getQueryParams();
 
         $requestArgs['url'] = $request->getRequestTarget();
-		$requestArgs['url'] = remove_query_arg( 'flush', $requestArgs['url'] );
-        $requestArgs['url'] = remove_query_arg( 'clearCache', $requestArgs['url'] );
+		$requestArgs['url'] = remove_query_arg( ['flush', 'clearCache'], $requestArgs['url'] );
 
 		// exclude flush params from hash request key
 		unset( $requestArgs['flush'] );
 		unset( $requestArgs['clearCache'] );
 
+        $requestArgs = $this->beforeHashRequest( $requestArgs, $request );
+
 		return Sanitize::textfield( md5( serialize( $requestArgs ) ) );
 	}
+
+    /**
+	 * Prepares request args for hashing
+	 * Override this method to change requestArgs before hash
+     *
+	 * @param  array             $requestArgs
+	 * @param  RequestInterface  $request
+	 *
+	 * @return array
+	 */
+    protected function beforeHashRequest( array $requestArgs, RequestInterface $request ){
+        return $requestArgs;
+    }
 
 	public function has( $key ): bool {
 		return $this->get( $key, false ) !== false;

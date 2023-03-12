@@ -336,7 +336,9 @@ class Sanitize
             ],
             'script'	=> [
                 'id'	=> true,
-                'src'	=> true
+                'src'	=> true,
+                'type'  => true,
+                'onload'=> true
             ],
             'style'	=> [
                 'id'    => true,

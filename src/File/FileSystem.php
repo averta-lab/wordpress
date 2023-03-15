@@ -213,4 +213,24 @@ class FileSystem
 
         return $this->wpFilesystem->move( $source, $destination, $overwrite );
     }
+
+    /**
+     * Gets the file modification time.
+     *
+     * @param string $file Path to file.
+     *
+     * @return mixed
+     */
+    public function mtime( $file ) {
+        return $this->wpFilesystem->mtime( $file );
+    }
+
+    /**
+     * Retrieves FileSystem instance.
+     *
+     * @return mixed
+     */
+    public function proxy(){
+        return $this->wpFilesystem;
+    }
 }

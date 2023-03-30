@@ -117,15 +117,20 @@ class FileSystem
     /**
      * Creates a folder path recursively.
      *
-     * @param string $path Path
+     * @param string $path Path  Full path to directory to create
+     * @param bool   $recursive  Whether to create directory recursively or not
      *
      * @return bool
      */
-    public function mkdir( $path )
+    public function mkdir( $path, $recursive = false )
     {
         if ( ! $this->validate() ){
 			return false;
 		}
+
+        if( $recursive ){
+            return wp_mkdir_p( $path );
+        }
 
         return $this->wpFilesystem->mkdir( $path );
     }

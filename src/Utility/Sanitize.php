@@ -516,6 +516,12 @@ class Sanitize
                 'class' => [],
                 'viewbox' => [],
                 'preserveaspectratio' => []
+            ],
+            'time' => [
+                'id' => [],
+                'class' => [],
+                'datetime' => [],
+                'data-*' => true
             ]
         ];
 

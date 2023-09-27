@@ -22,18 +22,23 @@ class Post
 
         // If post password required and it doesn't match the cookie.
         if ( post_password_required( $post ) ){
-            return get_the_password_form( $post );
+            return __( 'There is no excerpt because this is a protected post.' );
         }
 
         $excerptMore = apply_filters( 'excerpt_more', " ..." );
         $excerptMore = apply_filters( 'averta/wordpress/excerpt/trim/chars/more', $excerptMore );
 
+        // If char length is defined use it, otherwise use default char length
+        $maxCharLength  = empty( $maxCharLength ) ? apply_filters( 'averta/wordpress/excerpt/trim/chars/length', 250 ) : $maxCharLength;
+
         if ( $post->post_excerpt ){
             $excerpt = apply_filters( 'get_the_excerpt', $post->post_excerpt );
 
         } else {
-            $postContent      = $post->post_content;
-            $content           = $postContent;
+            $content = apply_filters( 'the_content', $post->post_content );
+
+            // Remove Gutenberg Blocks
+            $content = preg_replace('/<!--(.|\s)*?-->/', '', $content);
 
             // check for <!--more--> tag
             if ( ! $skipMoreTag && preg_match( '/<!--more(.*?)?-->/', $content, $matches ) ) {
@@ -44,18 +49,19 @@ class Post
                     $excerptMore   = ! empty( $moreLinkText ) ? $moreLinkText : $excerptMore;
                 }
 
-                return $content[0] . $excerptMore;
+                $content = $content[0];
             }
-            // If char length is defined use it, otherwise use default char length
-            $maxCharLength  = empty( $maxCharLength ) ? apply_filters( 'averta/wordpress/excerpt/trim/chars/length', 250 ) : $maxCharLength;
 
             // Clean post content
             $excerpt = strip_tags( Sanitize::stripShortcodes( $content, $excludeStripShortcodeTags ) );
+
+            // Remove special characters
+            $excerpt = preg_replace('/[^A-Za-z0-9\s]/', '', $excerpt );
         }
 
         $excerpt = Str::trimByChars( $excerpt, $maxCharLength, $excerptMore );
 
-        return apply_filters( 'averta/wordpress/excerpt/trim/chars/result', $excerpt, $post, $content, $postContent, $maxCharLength, $excerptMore );
+        return apply_filters( 'averta/wordpress/excerpt/trim/chars/result', $excerpt, $post, $maxCharLength, $excerptMore );
     }
 
 
@@ -75,7 +81,7 @@ class Post
 
         // If post password required and it doesn't match the cookie.
         if ( post_password_required( $post ) )
-            return get_the_password_form( $post );
+            return __( 'There is no excerpt because this is a protected post.' );
 
         if ( $post->post_excerpt ) {
             $result = apply_filters( 'get_the_excerpt', $post->post_excerpt );

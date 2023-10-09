@@ -225,7 +225,10 @@ class WPCache implements CacheInterface{
 	}
 
 	protected function validateKey( $key ){
-		return $this->keyPrefix . ltrim( $key, $this->keyPrefix );
+        if ( strpos( $key, $this->keyPrefix ) === 0 ) {
+            $key = substr( $key, strlen( $this->keyPrefix ) );
+        }
+		return $this->keyPrefix . $key;
 	}
 
 

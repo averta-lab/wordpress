@@ -391,6 +391,7 @@ class Sanitize
 	            'd' => [],
 	            'fill' => [],
 	            'fill-rule' => [],
+                'fill-opacity' => [],
 	            'width' => [],
 	            'height' => [],
 	            'transform' => [],
@@ -403,6 +404,7 @@ class Sanitize
 	            'id' => [],
 	            'class' => [],
 	            'fill' => [],
+                'fill-rule' => [],
 	            'width' => [],
 	            'height' => [],
 	            'transform' => [],
@@ -437,9 +439,11 @@ class Sanitize
 	            'cy' => [],
 	            'r' => [],
 	            'stroke-width' => [],
+                'stroke-opacity' => [],
 	            'stroke' => [],
 	            'opacity' => [],
-                'style' => []
+                'style' => [],
+                'fill-opacity' => []
 	        ],
 	        'ellipse' => [
 	            'id'   => [],
@@ -479,9 +483,35 @@ class Sanitize
 	        ],
 	        'stop' => [
 	            'offset'     => [],
-	            'stop-color' => []
+	            'stop-color' => [],
+                'stop-opacity' => []
 	        ],
-	        'radialgradient' => [],
+	        'radialgradient' => [
+                'id' => [],
+                'cx' => [],
+                'cy' => [],
+                'r'  => [],
+                'gradienttransform' => [],
+                'gradientunits' => []
+            ],
+            'animate' => [
+                'attributename' => [],
+                'begin' => [],
+                'dur' => [],
+                'values' => [],
+                'calcmode' => [],
+                'repeatcount' => [],
+                'keytimes' => [],
+                'keysplines' => []
+            ],
+            'animatetransform' => [
+                'attributename' => [],
+                'type' => [],
+                'from' => [],
+                'to' => [],
+                'dur' => [],
+                'repeatcount' => []
+            ],
 	        'defs' => [],
 	        'clippath' => [],
 	        'filter' => [

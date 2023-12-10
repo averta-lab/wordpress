@@ -88,7 +88,7 @@ class Post
             $content = apply_filters( 'the_content', $content );
 
             // If excerpt length is defined use it, otherwise use default excerpt length
-            $excerptLength = empty( $excerptLength ) ? apply_filters( 'excerpt_length', 55 ) : $excerptLength;
+            // $excerptLength = empty( $excerptLength ) ? apply_filters( 'excerpt_length', 55 ) : $excerptLength;
             $excerptMore   = apply_filters( 'excerpt_more', " ..." );
 
             // check for <!--more--> tag
@@ -105,7 +105,7 @@ class Post
 
             // Clean post content
             $excerpt = strip_tags( Sanitize::stripShortcodes( $content, $excludeStripShortcodeTags ) );
-            $result = wp_trim_words( $excerpt, $excerptLength, $excerptMore );
+            $result  = !empty( $excerptLength ) ? wp_trim_words( $excerpt, $excerptLength, $excerptMore ) : $excerpt;
         }
 
         return apply_filters( 'averta/wordpress/excerpt/trim/words/result', $result );

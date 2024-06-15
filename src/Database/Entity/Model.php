@@ -1,7 +1,6 @@
 <?php
 namespace Averta\WordPress\Database\Entity;
 
-use Averta\Core\Utility\Arr;
 use Averta\WordPress\Database\ORM\Connection;
 use Averta\WordPress\Database\ORM\Query;
 use TypeRocket\Models\Model as BaseModel;
@@ -53,7 +52,7 @@ class Model extends BaseModel
      */
     public function formatProperties( $fields )
 	{
-    	$fields = Arr::merge( $fields, $this->autoFill );
+        $fields = array_merge( $this->autoFill, $fields );
 
         foreach( $fields as $name => $value ) {
             if( ! empty( $this->format[ $name ] ) ){
@@ -80,6 +79,8 @@ class Model extends BaseModel
     }
 
     /**
+     * Establish WPDB connection
+     *
      * @return \wpdb
      */
     protected function establishConnection()
@@ -91,12 +92,15 @@ class Model extends BaseModel
             return $connection->default();
         }
 
-        return $connection->get($name);
+        return $connection->get( $name );
     }
 
 
     /**
+     * Setup WP query connection
+     *
      * @param \wpdb $wpdb
+     *
      * @return Query
      */
     public function setupQueryConnectionForModel(\wpdb $wpdb)

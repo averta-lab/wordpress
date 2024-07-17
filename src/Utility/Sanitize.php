@@ -555,6 +555,49 @@ class Sanitize
                 'class' => [],
                 'datetime' => [],
                 'data-*' => true
+            ],
+            'form' => [
+                'id'    => true,
+                'class' => true,
+                'style' => true,
+	            'action'=> true,
+	            'method'=> true,
+	            'data-*'=> true
+            ],
+            'input' => [
+                'id'    => true,
+                'class' => true,
+                'style' => true,
+	            'type'=> true,
+	            'name'=> true,
+	            'placeholder'=> true,
+	            'required'=> true,
+	            'data-*'=> true
+            ],
+            'textarea' => [
+                'id'    => true,
+                'class' => true,
+                'style' => true,
+	            'type'=> true,
+	            'name'=> true,
+	            'placeholder'=> true,
+	            'required'=> true,
+	            'data-*'=> true
+            ],
+            'label' => [
+                'id'    => true,
+                'class' => true,
+                'style' => true,
+	            'for'=> true,
+	            'name'=> true,
+	            'data-*'=> true
+            ],
+            'button' => [
+                'id'    => true,
+                'class' => true,
+                'style' => true,
+	            'type'=> true,
+	            'data-*'=> true
             ]
         ];
 

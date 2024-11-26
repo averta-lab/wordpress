@@ -424,7 +424,9 @@ class Sanitize
 	            'stroke-width' => [],
 	            'stroke' => [],
 	            'opacity' => [],
-                'style' => []
+                'style' => [],
+                'stroke-linecap' => [],
+                'stroke-linejoin' => []
 	        ],
 	        'g' => [
 	            'id' => [],
